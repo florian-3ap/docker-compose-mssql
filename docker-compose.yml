@@ -3,6 +3,8 @@ version: "3"
 volumes:
   mssql_data:
     driver: local
+  azuresqledge_data:
+    driver: local
 
 services:
   mssql:
@@ -14,3 +16,12 @@ services:
       - SA_PASSWORD=Password123!
     volumes:
       - mssql_data:/var/opt/mssql
+  azure-sql-edge:
+    image: 'mcr.microsoft.com/azure-sql-edge'
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=1
+      - MSSQL_SA_PASSWORD=Password123!
+    volumes:
+      - azuresqledge_data:/var/opt/mssql
